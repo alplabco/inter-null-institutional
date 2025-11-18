@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InterNull Design System - Component Examples</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Design Tokens -->
+  <link rel="stylesheet" href="design-tokens.css">
+
+  <style>
+    /* ========================================
+       TYPOGRAPHY STYLES
+       ======================================== */
+
+    .h1 {
+      font-family: var(--font-primary);
+      font-size: var(--font-size-5xl);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+      letter-spacing: var(--letter-spacing-tighter);
+      color: var(--color-gray-900);
+      margin-bottom: var(--spacing-6);
+    }
+
+    .h2 {
+      font-family: var(--font-primary);
+      font-size: var(--font-size-4xl);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-snug);
+      letter-spacing: var(--letter-spacing-tight);
+      color: var(--color-gray-900);
+      margin-bottom: var(--spacing-5);
+    }
+
+    .h3 {
+      font-family: var(--font-primary);
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-semibold);
+      line-height: var(--line-height-normal);
+      color: var(--color-gray-800);
+      margin-bottom: var(--spacing-4);
+    }
+
+    .h4 {
+      font-family: var(--font-primary);
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-semibold);
+      line-height: var(--line-height-relaxed);
+      color: var(--color-gray-800);
+      margin-bottom: var(--spacing-3);
+    }
+
+    .lead {
+      font-size: var(--font-size-xl);
+      line-height: var(--line-height-very-loose);
+      color: var(--color-gray-600);
+      margin-bottom: var(--spacing-8);
+    }
+
+    .body-text {
+      font-size: var(--font-size-base);
+      line-height: var(--line-height-loose);
+      color: var(--color-gray-700);
+    }
+
+    /* ========================================
+       BUTTON STYLES
+       ======================================== */
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-3) var(--spacing-6);
+      border-radius: var(--radius-base);
+      font-family: var(--font-primary);
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      line-height: var(--line-height-relaxed);
+      cursor: pointer;
+      transition: all var(--duration-fast) var(--ease-out);
+      text-decoration: none;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--color-precision-600);
+      color: var(--color-white);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .btn-primary:hover {
+      background: var(--color-precision-700);
+      box-shadow: var(--shadow-base);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .btn-secondary {
+      background: var(--color-white);
+      color: var(--color-gray-700);
+      border: 1.5px solid var(--color-gray-300);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--color-gray-400);
+      background: var(--color-gray-50);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-tertiary {
+      background: transparent;
+      color: var(--color-precision-600);
+    }
+
+    .btn-tertiary:hover {
+      background: var(--color-gray-100);
+      color: var(--color-precision-700);
+    }
+
+    .btn-lg {
+      padding: var(--spacing-4) var(--spacing-8);
+      font-size: var(--font-size-lg);
+    }
+
+    /* ========================================
+       CARD STYLES
+       ======================================== */
+
+    .card {
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-200);
+      border-radius: var(--radius-md);
+      padding: var(--spacing-6);
+      box-shadow: var(--shadow-sm);
+      transition: all var(--duration-base) var(--ease-out);
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-gray-300);
+    }
+
+    .card-header {
+      margin-bottom: var(--spacing-4);
+    }
+
+    .card-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .card-description {
+      font-size: var(--font-size-base);
+      color: var(--color-gray-600);
+      line-height: var(--line-height-loose);
+    }
+
+    .feature-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-200);
+      border-radius: var(--radius-md);
+      padding: var(--spacing-8);
+      transition: all 250ms var(--ease-out);
+    }
+
+    .feature-card:hover {
+      border-color: var(--color-precision-600);
+      box-shadow: 0 8px 24px rgba(15, 82, 186, 0.12);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      width: 3rem;
+      height: 3rem;
+      border-radius: var(--radius-md);
+      background: var(--color-gray-50);
+      color: var(--color-precision-600);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--spacing-4);
+      font-size: var(--font-size-2xl);
+    }
+
+    /* ========================================
+       FORM ELEMENTS
+       ======================================== */
+
+    .form-group {
+      margin-bottom: var(--spacing-6);
+    }
+
+    .form-label {
+      display: block;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-gray-700);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .form-input {
+      width: 100%;
+      padding: var(--spacing-3) var(--spacing-4);
+      border-radius: var(--radius-base);
+      border: 1.5px solid var(--color-gray-300);
+      font-family: var(--font-primary);
+      font-size: var(--font-size-base);
+      line-height: var(--line-height-relaxed);
+      color: var(--color-gray-900);
+      background: var(--color-white);
+      transition: all var(--duration-fast) var(--ease-out);
+    }
+
+    .form-input::placeholder {
+      color: var(--color-gray-400);
+    }
+
+    .form-input:hover {
+      border-color: var(--color-gray-400);
+    }
+
+    .form-input:focus {
+      border-color: var(--color-precision-600);
+      box-shadow: 0 0 0 3px rgba(15, 82, 186, 0.1);
+      outline: none;
+    }
+
+    /* ========================================
+       BADGES & TAGS
+       ======================================== */
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--spacing-1) var(--spacing-3);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      line-height: var(--line-height-relaxed);
+    }
+
+    .badge-success {
+      background: var(--color-success-100);
+      color: var(--color-success-800);
+    }
+
+    .badge-warning {
+      background: var(--color-warning-100);
+      color: var(--color-warning-800);
+    }
+
+    .badge-info {
+      background: var(--color-info-100);
+      color: var(--color-info-800);
+    }
+
+    .badge-privacy {
+      background: var(--color-privacy-400);
+      color: var(--color-white);
+    }
+
+    /* ========================================
+       NAVIGATION
+       ======================================== */
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: var(--z-header);
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-gray-200);
+      padding: var(--spacing-4) 0;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-gray-900);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: var(--spacing-8);
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 0.9375rem;
+      font-weight: var(--font-weight-medium);
+      color: var(--color-gray-700);
+      text-decoration: none;
+      transition: color var(--duration-fast) var(--ease-out);
+    }
+
+    .nav-link:hover {
+      color: var(--color-precision-600);
+    }
+
+    /* ========================================
+       ALERT / NOTIFICATION
+       ======================================== */
+
+    .alert {
+      padding: var(--spacing-4) var(--spacing-6);
+      border-radius: var(--radius-base);
+      border-left: 4px solid;
+      margin-bottom: var(--spacing-6);
+    }
+
+    .alert-success {
+      background: var(--color-success-50);
+      border-color: var(--color-success-600);
+      color: var(--color-success-800);
+    }
+
+    .alert-warning {
+      background: var(--color-warning-50);
+      border-color: var(--color-warning-600);
+      color: var(--color-warning-800);
+    }
+
+    .alert-error {
+      background: var(--color-error-50);
+      border-color: var(--color-error-600);
+      color: var(--color-error-800);
+    }
+
+    /* ========================================
+       DATA VISUALIZATION
+       ======================================== */
+
+    .stat-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-200);
+      border-radius: var(--radius-md);
+      padding: var(--spacing-6);
+    }
+
+    .stat-label {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-gray-600);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .stat-value {
+      font-size: var(--font-size-4xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-gray-900);
+      line-height: var(--line-height-snug);
+    }
+
+    .stat-change {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      margin-top: var(--spacing-2);
+    }
+
+    .stat-change.positive {
+      color: var(--color-success-600);
+    }
+
+    .stat-change.negative {
+      color: var(--color-error-600);
+    }
+
+    /* ========================================
+       CODE BLOCKS
+       ======================================== */
+
+    .code-inline {
+      font-family: var(--font-mono);
+      font-size: 0.875em;
+      background: var(--color-gray-100);
+      padding: 0.125rem 0.375rem;
+      border-radius: var(--radius-sm);
+      color: var(--color-indigo-700);
+    }
+
+    .code-block {
+      font-family: var(--font-mono);
+      font-size: var(--font-size-sm);
+      line-height: var(--line-height-very-loose);
+      background: var(--color-gray-900);
+      color: var(--color-gray-100);
+      padding: var(--spacing-6);
+      border-radius: var(--radius-base);
+      overflow-x: auto;
+      margin: var(--spacing-6) 0;
+    }
+
+    /* ========================================
+       LAYOUT UTILITIES
+       ======================================== */
+
+    .section {
+      padding: var(--spacing-20) 0;
+    }
+
+    .section-gray {
+      background: var(--color-gray-50);
+    }
+
+    .grid {
+      display: grid;
+      gap: var(--spacing-6);
+    }
+
+    .grid-cols-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-cols-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: 768px) {
+      .grid-cols-2,
+      .grid-cols-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .flex {
+      display: flex;
+    }
+
+    .flex-gap-4 {
+      gap: var(--spacing-4);
+    }
+
+    .items-center {
+      align-items: center;
+    }
+
+    .justify-between {
+      justify-content: space-between;
+    }
+
+    .mb-4 { margin-bottom: var(--spacing-4); }
+    .mb-6 { margin-bottom: var(--spacing-6); }
+    .mb-8 { margin-bottom: var(--spacing-8); }
+    .mb-12 { margin-bottom: var(--spacing-12); }
+
+    .text-center {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================
+       HEADER / NAVIGATION
+       ======================================== -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="#" class="nav-logo">InterNull</a>
+        <ul class="nav-links">
+          <li><a href="#" class="nav-link">Platform</a></li>
+          <li><a href="#" class="nav-link">Solutions</a></li>
+          <li><a href="#" class="nav-link">Documentation</a></li>
+          <li><a href="#" class="nav-link">Enterprise</a></li>
+        </ul>
+        <div class="flex flex-gap-4">
+          <button class="btn btn-tertiary">Contact Sales</button>
+          <button class="btn btn-primary">Schedule Demo</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========================================
+       HERO SECTION
+       ======================================== -->
+  <section class="section">
+    <div class="container container-narrow text-center">
+      <h1 class="h1">Institutional Privacy Middleware for Blockchain Settlement</h1>
+      <p class="lead">
+        Non-custodial, multi-chain, compliance-ready privacy infrastructure for market makers, crypto funds, and institutional custodians.
+      </p>
+      <div class="flex flex-gap-4 items-center" style="justify-content: center;">
+        <button class="btn btn-primary btn-lg">Start Pilot Program</button>
+        <button class="btn btn-secondary btn-lg">View Documentation</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       ALERTS / NOTIFICATIONS
+       ======================================== -->
+  <section class="section section-gray">
+    <div class="container container-narrow">
+      <h2 class="h2 mb-8">Alert Components</h2>
+
+      <div class="alert alert-success">
+        <strong>Compliance Verified:</strong> Your privacy cluster has passed OFAC screening and is ready for deployment.
+      </div>
+
+      <div class="alert alert-warning">
+        <strong>Action Required:</strong> Please complete KYC verification to enable institutional settlement features.
+      </div>
+
+      <div class="alert alert-error">
+        <strong>Transaction Failed:</strong> The recipient address is on the sanctions list. Transaction has been blocked.
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       FEATURE CARDS
+       ======================================== -->
+  <section class="section">
+    <div class="container">
+      <div class="container-narrow text-center mb-12">
+        <h2 class="h2">Enterprise-Grade Privacy Architecture</h2>
+        <p class="body-text" style="color: var(--color-gray-600);">
+          Compliance-ready confidentiality for institutional blockchain operations
+        </p>
+      </div>
+
+      <div class="grid grid-cols-3">
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3 class="h4">Per-Client Privacy Clusters</h3>
+          <p class="body-text">
+            Isolated DKG clusters ensure no commingling of funds. Each institution controls their own privacy infrastructure.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">✓</div>
+          <h3 class="h4">Built-in Compliance Hooks</h3>
+          <p class="body-text">
+            Proactive OFAC screening, selective disclosure, and encrypted audit trails for regulatory transparency.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3 class="h4">Multi-Chain Agnostic</h3>
+          <p class="body-text">
+            Deploy privacy middleware across Ethereum, Polygon, Arbitrum, and other EVM-compatible chains.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       DATA / STATS SECTION
+       ======================================== -->
+  <section class="section section-gray">
+    <div class="container">
+      <h2 class="h2 mb-8">Platform Metrics</h2>
+
+      <div class="grid grid-cols-3">
+        <div class="stat-card">
+          <div class="stat-label">Total Value Secured</div>
+          <div class="stat-value">$847M</div>
+          <div class="stat-change positive">↑ 12.4% this month</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">Institutional Clients</div>
+          <div class="stat-value">127</div>
+          <div class="stat-change positive">↑ 23 new clients</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">Privacy Transactions</div>
+          <div class="stat-value">45,892</div>
+          <div class="stat-change positive">↑ 34.2% this month</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       FORM EXAMPLE
+       ======================================== -->
+  <section class="section">
+    <div class="container container-narrow">
+      <h2 class="h2 mb-8">Request Institutional Access</h2>
+
+      <form>
+        <div class="form-group">
+          <label class="form-label" for="company">Company Name</label>
+          <input
+            type="text"
+            id="company"
+            class="form-input"
+            placeholder="Enter your institutional entity name"
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Corporate Email</label>
+          <input
+            type="email"
+            id="email"
+            class="form-input"
+            placeholder="you@company.com"
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="use-case">Primary Use Case</label>
+          <select id="use-case" class="form-input">
+            <option>Select a use case</option>
+            <option>Market Making / Trading</option>
+            <option>Treasury Management</option>
+            <option>Settlement Infrastructure</option>
+            <option>Custody Operations</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+          Submit Application
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ========================================
+       CODE BLOCK EXAMPLE
+       ======================================== -->
+  <section class="section section-gray">
+    <div class="container container-narrow">
+      <h2 class="h2 mb-8">Developer Integration</h2>
+
+      <p class="body-text mb-6">
+        Integrate InterNull privacy middleware with just a few lines of code.
+        Install the SDK with <code class="code-inline">npm install @internull/sdk</code>
+      </p>
+
+      <div class="code-block">
+<span style="color: #6366F1;">import</span> { InterNullClient } <span style="color: #6366F1;">from</span> <span style="color: #FACC15;">'@internull/sdk'</span>;
+
+<span style="color: #94A3B8;">// Initialize privacy cluster</span>
+<span style="color: #6366F1;">const</span> client = <span style="color: #6366F1;">new</span> <span style="color: #A78BFA;">InterNullClient</span>({
+  clusterId: <span style="color: #FACC15;">'your-cluster-id'</span>,
+  apiKey: <span style="color: #FACC15;">process.env.INTERNULL_API_KEY</span>,
+  compliance: {
+    ofacScreening: <span style="color: #6366F1;">true</span>,
+    auditLogs: <span style="color: #6366F1;">true</span>,
+  },
+});
+
+<span style="color: #94A3B8;">// Execute private transaction</span>
+<span style="color: #6366F1;">const</span> tx = <span style="color: #6366F1;">await</span> client.<span style="color: #A78BFA;">sendPrivateTransaction</span>({
+  to: recipientAddress,
+  amount: <span style="color: #FACC15;">'1000000000000000000'</span>, <span style="color: #94A3B8;">// 1 ETH</span>
+  token: <span style="color: #FACC15;">'ETH'</span>,
+});
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       BADGES & STATUS
+       ======================================== -->
+  <section class="section">
+    <div class="container">
+      <h2 class="h2 mb-8">Status Indicators</h2>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="flex items-center justify-between">
+            <h3 class="card-title">Privacy Cluster Status</h3>
+            <span class="badge badge-success">Active</span>
+          </div>
+        </div>
+
+        <div class="card-description">
+          <p class="mb-4">Your institutional privacy cluster is operational and compliant.</p>
+
+          <div class="flex flex-gap-4" style="flex-wrap: wrap;">
+            <span class="badge badge-success">✓ OFAC Compliant</span>
+            <span class="badge badge-success">✓ Audit Enabled</span>
+            <span class="badge badge-info">Multi-Chain Ready</span>
+            <span class="badge badge-privacy">🔒 End-to-End Encrypted</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       FOOTER
+       ======================================== -->
+  <footer style="background: var(--color-gray-900); color: var(--color-gray-400); padding: var(--spacing-12) 0;">
+    <div class="container">
+      <div class="grid grid-cols-3">
+        <div>
+          <h4 style="color: var(--color-white); margin-bottom: var(--spacing-4);">InterNull</h4>
+          <p style="font-size: var(--font-size-sm); line-height: var(--line-height-loose);">
+            Institutional privacy middleware for blockchain settlement.
+          </p>
+        </div>
+
+        <div>
+          <h4 style="color: var(--color-white); margin-bottom: var(--spacing-4); font-size: var(--font-size-sm);">PRODUCT</h4>
+          <ul style="list-style: none; font-size: var(--font-size-sm); line-height: 2;">
+            <li><a href="#" style="color: var(--color-gray-400); text-decoration: none;">Platform</a></li>
+            <li><a href="#" style="color: var(--color-gray-400); text-decoration: none;">Documentation</a></li>
+            <li><a href="#" style="color: var(--color-gray-400); text-decoration: none;">API Reference</a></li>
+            <li><a href="#" style="color: var(--color-gray-400); text-decoration: none;">Security</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="color: var(--color-white); margin-bottom: var(--spacing-4); font-size: var(--font-size-sm);">COMPANY</h4>
+          <ul style="list-style: none; font-size: var(--font-size-sm); line-height: 2;">
+            <li><a href="#" style="color: var(--color-gray-400); text-decoration: none;">About</a></li>
+            <li><a href="#" style="color: var(--color-gray-400); text-decoration: none;">Compliance</a></li>
+            <li><a href="#" style="color: var(--color-gray-400); text-decoration: none;">Enterprise</a></li>
+            <li><a href="#" style="color: var(--color-gray-400); text-decoration: none;">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid var(--color-gray-800); margin-top: var(--spacing-8); padding-top: var(--spacing-8); font-size: var(--font-size-sm);">
+        © 2025 InterNull. All rights reserved. | <a href="#" style="color: var(--color-gray-400);">Privacy Policy</a> | <a href="#" style="color: var(--color-gray-400);">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
