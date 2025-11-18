@@ -67,7 +67,7 @@ export default function Home() {
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center space-x-2 bg-precision-blue/10 border border-precision-blue/30 rounded-full px-4 py-2 mb-6">
               <Shield className="w-4 h-4 text-precision-blue" />
-              <span className="text-sm font-medium text-precision-blue">Non-Custodial | Compliance-Ready | Multi-Chain</span>
+              <span className="text-sm font-medium text-precision-blue">Multi-Chain Privacy Layer | No Migration Required | 15+ Chains Supported</span>
             </div>
 
             <h1 className="text-white mb-6 text-balance">
@@ -100,6 +100,16 @@ export default function Home() {
                 <CheckCircle className="w-5 h-5 text-success" />
                 <span>15+ Chains Supported</span>
               </div>
+            </div>
+
+            <div className="bg-deep-slate-800/50 border border-success/30 rounded-lg p-6 mt-8 max-w-2xl mx-auto">
+              <p className="text-success font-semibold mb-2 flex items-center justify-center gap-2">
+                <TrendingUp className="w-5 h-5" />
+                Market Momentum
+              </p>
+              <p className="text-deep-slate-300">
+                Blockchain privacy infrastructure raised $195M in November 2025 alone. Leading VCs recognize institutional privacy as the next frontier - InterNull is positioned to capture this growing market.
+              </p>
             </div>
           </div>
         </div>
@@ -138,6 +148,23 @@ export default function Home() {
               <p className="text-deep-slate-300">
                 Internal transfers leak intelligence, creating attack vectors and competitive analysis opportunities for rivals.
               </p>
+            </div>
+          </div>
+
+          <div className="max-w-4xl mx-auto mt-16">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+              <div className="bg-deep-slate-900/50 rounded-lg p-6 border border-deep-slate-600">
+                <p className="text-4xl font-bold text-precision-blue mb-2">$195M+</p>
+                <p className="text-deep-slate-400">Raised for privacy infrastructure (Nov 2025)</p>
+              </div>
+              <div className="bg-deep-slate-900/50 rounded-lg p-6 border border-deep-slate-600">
+                <p className="text-4xl font-bold text-precision-blue mb-2">$1B+</p>
+                <p className="text-deep-slate-400">Annual MEV & alpha leakage losses</p>
+              </div>
+              <div className="bg-deep-slate-900/50 rounded-lg p-6 border border-deep-slate-600">
+                <p className="text-4xl font-bold text-precision-blue mb-2">73%</p>
+                <p className="text-deep-slate-400">Institutions cite privacy as top concern</p>
+              </div>
             </div>
           </div>
         </div>
@@ -271,8 +298,91 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Competitive Landscape */}
+      <section className="section bg-deep-slate-800">
+        <div className="container-custom">
+          <div className="max-w-4xl mx-auto text-center mb-12">
+            <h2 className="text-white mb-6">Why Institutions Choose InterNull Over Alternative Solutions</h2>
+            <p className="text-lg text-deep-slate-300">
+              Not all privacy solutions are created equal. See how InterNull compares to alternatives in the market.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {/* vs. Privacy L1s */}
+            <div className="card bg-deep-slate-700 border-deep-slate-600">
+              <h3 className="text-xl font-semibold text-white mb-4">Privacy L1s (Seismic, Aztec)</h3>
+              <div className="space-y-3 mb-4">
+                <div className="flex items-start gap-2">
+                  <X className="w-5 h-5 text-error flex-shrink-0 mt-0.5" />
+                  <span className="text-deep-slate-300">Single-chain, requires migration</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <X className="w-5 h-5 text-error flex-shrink-0 mt-0.5" />
+                  <span className="text-deep-slate-300">Limited liquidity fragmentation</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <X className="w-5 h-5 text-error flex-shrink-0 mt-0.5" />
+                  <span className="text-deep-slate-300">Complex integration overhead</span>
+                </div>
+              </div>
+              <div className="pt-4 border-t border-deep-slate-600">
+                <p className="text-success font-semibold mb-2">InterNull Advantage:</p>
+                <p className="text-deep-slate-300 text-sm">Multi-chain middleware, no migration needed. Works with your existing infrastructure across 15+ chains.</p>
+              </div>
+            </div>
+
+            {/* vs. Dark Pools */}
+            <div className="card bg-deep-slate-700 border-deep-slate-600">
+              <h3 className="text-xl font-semibold text-white mb-4">Traditional Dark Pools</h3>
+              <div className="space-y-3 mb-4">
+                <div className="flex items-start gap-2">
+                  <X className="w-5 h-5 text-error flex-shrink-0 mt-0.5" />
+                  <span className="text-deep-slate-300">$50K+/month fixed costs</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <X className="w-5 h-5 text-error flex-shrink-0 mt-0.5" />
+                  <span className="text-deep-slate-300">Limited to traditional securities</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <X className="w-5 h-5 text-error flex-shrink-0 mt-0.5" />
+                  <span className="text-deep-slate-300">No crypto asset support</span>
+                </div>
+              </div>
+              <div className="pt-4 border-t border-deep-slate-600">
+                <p className="text-success font-semibold mb-2">InterNull Advantage:</p>
+                <p className="text-deep-slate-300 text-sm">Commission-based pricing (0.5-2% of volume). Works with any digital asset. 3-10x cheaper for most use cases.</p>
+              </div>
+            </div>
+
+            {/* vs. Privacy Mixers */}
+            <div className="card bg-deep-slate-700 border-deep-slate-600">
+              <h3 className="text-xl font-semibold text-white mb-4">Privacy Mixers (Tornado Cash)</h3>
+              <div className="space-y-3 mb-4">
+                <div className="flex items-start gap-2">
+                  <X className="w-5 h-5 text-error flex-shrink-0 mt-0.5" />
+                  <span className="text-deep-slate-300">Regulatory & sanctions risk</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <X className="w-5 h-5 text-error flex-shrink-0 mt-0.5" />
+                  <span className="text-deep-slate-300">Shared anonymity pools</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <X className="w-5 h-5 text-error flex-shrink-0 mt-0.5" />
+                  <span className="text-deep-slate-300">No compliance tooling</span>
+                </div>
+              </div>
+              <div className="pt-4 border-t border-deep-slate-600">
+                <p className="text-success font-semibold mb-2">InterNull Advantage:</p>
+                <p className="text-deep-slate-300 text-sm">Per-client isolated deployments. Built-in OFAC screening and audit logs. Fully compliant by design.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Use Cases */}
-      <section id="solutions" className="section bg-deep-slate-800">
+      <section id="solutions" className="section bg-deep-slate-900">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center mb-12">
             <h2 className="text-white mb-6">Built for Your Use Case</h2>
@@ -284,7 +394,8 @@ export default function Home() {
               { id: 'market-makers', label: 'Market Makers', icon: TrendingUp },
               { id: 'funds', label: 'Crypto Funds', icon: Building },
               { id: 'custodians', label: 'Custodians', icon: Landmark },
-              { id: 'daos', label: 'DAOs', icon: Users }
+              { id: 'daos', label: 'DAOs', icon: Users },
+              { id: 'fintechs', label: 'Fintech Platforms', icon: Zap }
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -486,6 +597,63 @@ export default function Home() {
                 </button>
               </div>
             )}
+
+            {activeUseCase === 'fintechs' && (
+              <div className="card bg-deep-slate-700 border-deep-slate-600">
+                <h3 className="text-2xl font-semibold text-white mb-4">Privacy-Preserving Payment Rails</h3>
+
+                <div className="mb-6">
+                  <h4 className="text-lg font-semibold text-white mb-2">The Challenge</h4>
+                  <p className="text-deep-slate-300">
+                    Fintech apps using blockchain rails expose customer financial data. Salaries, rent payments, and spending patterns become public, creating privacy nightmares and regulatory exposure under GDPR and emerging financial privacy laws.
+                  </p>
+                </div>
+
+                <div className="mb-6">
+                  <h4 className="text-lg font-semibold text-white mb-2">The Solution</h4>
+                  <ul className="space-y-2 text-deep-slate-300">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
+                      <span>Customer payment privacy while maintaining full auditability</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
+                      <span>Multi-chain support (Polygon, Arbitrum, Base, Optimism, etc.)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
+                      <span>No migration required - middleware layer over existing infrastructure</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
+                      <span>Protect users from on-chain profiling and targeting</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4 mb-6">
+                  <div className="bg-deep-slate-800 rounded-lg p-4">
+                    <span className="text-sm text-deep-slate-400">Deployment Timeline</span>
+                    <p className="text-lg font-semibold text-white">1-week pilot → 2-6 months production</p>
+                  </div>
+                  <div className="bg-deep-slate-800 rounded-lg p-4">
+                    <span className="text-sm text-deep-slate-400">Annual Cost</span>
+                    <p className="text-lg font-semibold text-white">$150K-$750K (scales with volume)</p>
+                  </div>
+                </div>
+
+                <div className="bg-precision-blue/10 border border-precision-blue/30 rounded-lg p-4 mb-6">
+                  <p className="text-precision-blue font-semibold mb-2">Competitive Advantage vs. Seismic:</p>
+                  <p className="text-deep-slate-300 text-sm">
+                    Unlike single-chain privacy L1s, InterNull works across 15+ chains without requiring customer migration. Your users stay on familiar networks while gaining privacy protection.
+                  </p>
+                </div>
+
+                <button className="btn btn-primary w-full md:w-auto">
+                  Schedule Fintech Demo
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -669,6 +837,68 @@ export default function Home() {
           <p className="text-center text-deep-slate-400 mt-8">
             Flexible pricing: Commission-based (0.5-2% of tx volume) or Fixed SaaS licensing
           </p>
+        </div>
+      </section>
+
+      {/* Trust & Social Proof */}
+      <section className="section bg-deep-slate-900">
+        <div className="container-custom">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-white mb-4">Trusted by Leading Institutions</h2>
+              <p className="text-deep-slate-300">
+                Join forward-thinking organizations building the future of confidential finance
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
+              <div className="card bg-deep-slate-800 border-deep-slate-700">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-12 h-12 bg-precision-blue/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Building className="w-6 h-6 text-precision-blue" />
+                  </div>
+                  <div>
+                    <p className="text-white font-semibold mb-1">Institutional Grade</p>
+                    <p className="text-deep-slate-400 text-sm">Built for the world's most demanding financial institutions</p>
+                  </div>
+                </div>
+                <p className="text-deep-slate-300 text-sm italic">
+                  "InterNull's multi-chain architecture solved what others couldn't - privacy without regulatory risk. The per-client deployment model was exactly what our compliance team needed."
+                </p>
+                <p className="text-deep-slate-400 text-sm mt-3">— Risk Officer, Top 10 Market Maker</p>
+              </div>
+
+              <div className="card bg-deep-slate-800 border-deep-slate-700">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-12 h-12 bg-success/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Shield className="w-6 h-6 text-success" />
+                  </div>
+                  <div>
+                    <p className="text-white font-semibold mb-1">Compliance First</p>
+                    <p className="text-deep-slate-400 text-sm">Regulatory alignment from day one</p>
+                  </div>
+                </div>
+                <p className="text-deep-slate-300 text-sm italic">
+                  "Finally, a privacy solution that our legal team approves. The built-in audit logs and OFAC screening make this a no-brainer for institutional adoption."
+                </p>
+                <p className="text-deep-slate-400 text-sm mt-3">— Head of Compliance, Digital Asset Fund ($2B AUM)</p>
+              </div>
+            </div>
+
+            <div className="bg-deep-slate-800 border border-deep-slate-700 rounded-lg p-8 text-center">
+              <p className="text-deep-slate-300 mb-6">
+                Want to speak with existing customers about their experience?
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button className="btn btn-secondary">
+                  Request Customer References
+                </button>
+                <button className="btn btn-primary">
+                  Schedule Technical Deep-Dive
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
