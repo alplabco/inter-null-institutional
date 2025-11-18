@@ -1,3 +1,22 @@
+const safeRequire = (name) => {
+  try {
+    return require(name)
+  } catch (error) {
+    return null
+  }
+}
+
+const tailwindForms = safeRequire('@tailwindcss/forms')
+const tailwindTypography = safeRequire('@tailwindcss/typography')
+
+const rgbColor = (hex) => {
+  const normalized = hex.replace('#', '')
+  const r = parseInt(normalized.slice(0, 2), 16)
+  const g = parseInt(normalized.slice(2, 4), 16)
+  const b = parseInt(normalized.slice(4, 6), 16)
+  return `rgb(${r} ${g} ${b} / <alpha-value>)`
+}
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -7,84 +26,71 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Primary Brand Colors
-        slate: {
-          600: '#475569',
-          700: '#334155',
-          800: '#1E293B',
-          900: '#0F172A',
+        'deep-slate': {
+          50: rgbColor('#F8FAFC'),
+          100: rgbColor('#F1F5F9'),
+          200: rgbColor('#E2E8F0'),
+          300: rgbColor('#CBD5E1'),
+          400: rgbColor('#94A3B8'),
+          500: rgbColor('#64748B'),
+          600: rgbColor('#475569'),
+          700: rgbColor('#334155'),
+          800: rgbColor('#1E293B'),
+          900: rgbColor('#0F172A'),
+          950: rgbColor('#020617'),
         },
-        precision: {
-          400: '#3B82F6',
-          500: '#1E6FDB',
-          600: '#0F52BA',
-          700: '#0A3D8F',
+        'precision-blue': rgbColor('#0F52BA'),
+        'precision-blue-hover': rgbColor('#0C408E'),
+        'institutional-indigo': rgbColor('#4F46E5'),
+        'cool-gray': {
+          50: rgbColor('#F9FAFB'),
+          100: rgbColor('#F3F4F6'),
+          200: rgbColor('#E5E7EB'),
+          300: rgbColor('#D1D5DB'),
+          400: rgbColor('#9CA3AF'),
+          500: rgbColor('#6B7280'),
+          600: rgbColor('#4B5563'),
+          700: rgbColor('#374151'),
+          800: rgbColor('#1F2937'),
+          900: rgbColor('#111827'),
         },
-        indigo: {
-          400: '#818CF8',
-          500: '#6366F1',
-          600: '#4F46E5',
-          700: '#4338CA',
-        },
-
-        // Neutrals (extended from default grays)
-        gray: {
-          50: '#F8FAFC',
-          100: '#F1F5F9',
-          200: '#E2E8F0',
-          300: '#CBD5E1',
-          400: '#94A3B8',
-          500: '#64748B',
-          600: '#475569',
-          700: '#334155',
-          800: '#1E293B',
-          900: '#0F172A',
-        },
-
-        // Semantic Colors
         success: {
-          DEFAULT: '#10B981',
-          50: '#F0FDF4',
-          100: '#DCFCE7',
-          600: '#16A34A',
-          700: '#15803D',
-          800: '#166534',
+          50: rgbColor('#F0FDF4'),
+          100: rgbColor('#DCFCE7'),
+          600: rgbColor('#16A34A'),
+          700: rgbColor('#15803D'),
+          800: rgbColor('#166534'),
         },
         warning: {
-          DEFAULT: '#F59E0B',
-          50: '#FFFBEB',
-          100: '#FEF3C7',
-          600: '#D97706',
-          700: '#B45309',
-          800: '#92400E',
+          50: rgbColor('#FFFBEB'),
+          100: rgbColor('#FEF3C7'),
+          600: rgbColor('#D97706'),
+          700: rgbColor('#B45309'),
+          800: rgbColor('#92400E'),
         },
         error: {
-          DEFAULT: '#EF4444',
-          50: '#FEF2F2',
-          100: '#FEE2E2',
-          600: '#DC2626',
-          700: '#B91C1C',
-          800: '#991B1B',
+          50: rgbColor('#FEF2F2'),
+          100: rgbColor('#FEE2E2'),
+          600: rgbColor('#DC2626'),
+          700: rgbColor('#B91C1C'),
+          800: rgbColor('#991B1B'),
         },
         info: {
-          DEFAULT: '#3B82F6',
-          50: '#EFF6FF',
-          100: '#DBEAFE',
-          600: '#2563EB',
-          700: '#1D4ED8',
-          800: '#1E40AF',
+          50: rgbColor('#EFF6FF'),
+          100: rgbColor('#DBEAFE'),
+          600: rgbColor('#2563EB'),
+          700: rgbColor('#1D4ED8'),
+          800: rgbColor('#1E40AF'),
         },
-
-        // Specialty Colors
         privacy: {
-          400: '#A78BFA',
-          500: '#8B5CF6',
-          600: '#7C3AED',
+          400: rgbColor('#A78BFA'),
+          500: rgbColor('#8B5CF6'),
+          600: rgbColor('#7C3AED'),
         },
         audit: {
-          400: '#FACC15',
-          500: '#EAB308',
-          600: '#CA8A04',
+          400: rgbColor('#FACC15'),
+          500: rgbColor('#EAB308'),
+          600: rgbColor('#CA8A04'),
         },
       },
 
@@ -215,8 +221,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [tailwindForms, tailwindTypography].filter(Boolean),
 }
