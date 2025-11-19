@@ -1,992 +1,520 @@
 'use client'
 
-import { useState } from 'react'
-import { Menu, X, ChevronDown, Shield, Lock, Globe, Zap, CheckCircle, AlertTriangle, TrendingUp, Users, Building, Landmark } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Menu, X, Shield, Lock, Globe, Zap, CheckCircle, AlertTriangle, TrendingUp, Users, Building, Landmark, ArrowRight, ChevronRight, LayoutGrid, Server, EyeOff, Wallet } from 'lucide-react'
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const [activeUseCase, setActiveUseCase] = useState('market-makers')
 
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-slate-900/95 backdrop-blur-sm border-b border-slate-700 z-50">
+    <div className="min-h-screen bg-background relative overflow-hidden selection:bg-primary/30">
+      {/* --- AMBIENT BACKGROUND EFFECTS --- */}
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-background to-background z-0 pointer-events-none" />
+      <div className="fixed inset-0 bg-grid-pattern bg-[length:4rem_4rem] opacity-[0.03] z-0 pointer-events-none" />
+      <div className="fixed inset-0 bg-noise z-0 pointer-events-none" />
+
+      {/* --- NAVIGATION --- */}
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'glass-nav py-4' : 'bg-transparent py-6'}`}>
         <div className="container-custom">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <span className="text-2xl font-bold text-white">InterNull</span>
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded flex items-center justify-center shadow-lg shadow-primary/20">
+                <Shield className="w-5 h-5 text-white" />
+              </div>
+              <span className="text-xl font-bold text-white tracking-tight">InterNull</span>
             </div>
 
-            {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
-              <a href="#platform" className="text-gray-300 hover:text-white transition">Platform</a>
-              <a href="#solutions" className="text-gray-300 hover:text-white transition">Solutions</a>
-              <a href="#compliance" className="text-gray-300 hover:text-white transition">Compliance</a>
-              <a href="#pricing" className="text-gray-300 hover:text-white transition">Pricing</a>
+              {['Platform', 'Solutions', 'Compliance', 'Pricing'].map((item) => (
+                <a key={item} href={`#${item.toLowerCase()}`} className="text-sm font-medium text-slate-400 hover:text-white transition-colors">
+                  {item}
+                </a>
+              ))}
             </div>
 
             <div className="hidden md:flex items-center space-x-4">
-              <button className="btn btn-secondary text-sm">
+              <button className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
                 Talk to Sales
               </button>
-              <button className="btn btn-primary text-sm">
+              <button className="btn-primary px-5 py-2 rounded text-sm font-semibold transition-all transform hover:scale-105">
                 Schedule Demo
               </button>
             </div>
 
-            {/* Mobile menu button */}
-            <button
-              className="md:hidden text-white"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            <button className="md:hidden text-white" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+              {mobileMenuOpen ? <X /> : <Menu />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-slate-800 border-t border-slate-700">
-            <div className="container-custom py-4 space-y-4">
-              <a href="#platform" className="block text-gray-300 hover:text-white transition">Platform</a>
-              <a href="#solutions" className="block text-gray-300 hover:text-white transition">Solutions</a>
-              <a href="#compliance" className="block text-gray-300 hover:text-white transition">Compliance</a>
-              <a href="#pricing" className="block text-gray-300 hover:text-white transition">Pricing</a>
-              <div className="pt-4 space-y-2">
-                <button className="btn btn-secondary w-full text-sm">Talk to Sales</button>
-                <button className="btn btn-primary w-full text-sm">Schedule Demo</button>
+          <div className="absolute top-full left-0 w-full glass-nav border-t border-slate-800 p-6 md:hidden animate-fade-in">
+            <div className="flex flex-col space-y-4">
+              {['Platform', 'Solutions', 'Compliance', 'Pricing'].map((item) => (
+                <a key={item} href={`#${item.toLowerCase()}`} className="text-slate-300 hover:text-white text-lg font-medium">
+                  {item}
+                </a>
+              ))}
+              <div className="pt-4 border-t border-slate-800 flex flex-col gap-3">
+                <button className="btn-secondary py-3 rounded font-medium">Talk to Sales</button>
+                <button className="btn-primary py-3 rounded font-medium">Schedule Demo</button>
               </div>
             </div>
           </div>
         )}
       </nav>
 
-      {/* Hero Section */}
-      <section className="section pt-32 md:pt-40">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center space-x-2 bg-precision-600/10 border border-precision-600/30 rounded-full px-4 py-2 mb-6">
-              <Shield className="w-4 h-4 text-precision-600" />
-              <span className="text-sm font-medium text-precision-600">Multi-Chain Privacy Layer | No Migration Required | 15+ Chains Supported</span>
-            </div>
-
-            <h1 className="text-white mb-6 text-balance">
-              Confidential Settlement Infrastructure for Institutional Digital Assets
-            </h1>
-
-            <p className="text-xl text-gray-300 mb-8 text-balance max-w-3xl mx-auto">
-              Multi-chain privacy middleware that preserves competitive advantage while enabling full regulatory compliance. Built for market makers, crypto funds, custodians, and DAOs that demand both confidentiality and auditability.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <button className="btn btn-primary text-lg px-8 py-4">
-                Schedule a Confidential Demo
-              </button>
-              <button className="btn btn-secondary text-lg px-8 py-4 bg-white/10 border-white/30 text-white hover:bg-white/20">
-                Download Technical Overview
-              </button>
-            </div>
-
-            <div className="flex flex-wrap justify-center gap-8 text-sm text-gray-400">
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-success" />
-                <span>Zero Custody Risk</span>
+      <main className="relative z-10">
+        {/* --- HERO SECTION --- */}
+        <section className="pt-40 pb-20 lg:pt-52 lg:pb-32 relative">
+          <div className="container-custom">
+            <div className="max-w-5xl mx-auto text-center">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary-glow text-xs font-medium mb-8 animate-fade-in">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                </span>
+                Multi-Chain Privacy Layer | 15+ Chains
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-success" />
-                <span>MiCA & FinCEN Ready</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-success" />
-                <span>15+ Chains Supported</span>
-              </div>
-            </div>
+              
+              <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight mb-8 leading-[1.1] animate-slide-up">
+                Confidential Settlement <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-glow via-blue-400 to-accent text-glow">
+                  Without Custody Risk
+                </span>
+              </h1>
 
-            <div className="bg-slate-800/50 border border-success/30 rounded-lg p-6 mt-8 max-w-2xl mx-auto">
-              <p className="text-success font-semibold mb-2 flex items-center justify-center gap-2">
-                <TrendingUp className="w-5 h-5" />
-                Market Momentum
+              <p className="text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed animate-slide-up [animation-delay:100ms]">
+                Preserve competitive advantage while enabling full regulatory compliance. The infrastructure for market makers, funds, and custodians demanding both confidentiality and auditability.
               </p>
-              <p className="text-gray-300">
-                Blockchain privacy infrastructure raised $195M in November 2025 alone. Leading VCs recognize institutional privacy as the next frontier - InterNull is positioned to capture this growing market.
-              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up [animation-delay:200ms]">
+                <button className="group relative px-8 py-4 bg-primary text-white font-semibold rounded overflow-hidden transition-all hover:shadow-[0_0_40px_-10px_rgba(15,82,186,0.5)]">
+                  <div className="absolute inset-0 bg-white/20 group-hover:translate-x-full transition-transform duration-500 skew-x-12 -ml-4 w-[150%]" />
+                  <span className="relative flex items-center gap-2">
+                    Schedule Confidential Demo <ArrowRight className="w-4 h-4" />
+                  </span>
+                </button>
+                <button className="px-8 py-4 text-slate-300 hover:text-white font-medium transition-colors border border-slate-800 hover:border-slate-600 rounded hover:bg-surface/50">
+                  Technical Overview
+                </button>
+              </div>
+            </div>
+
+            {/* Hero Metrics Grid (Merged from your new content) */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-24 border-y border-slate-800/50 py-10 bg-surface/30 backdrop-blur-sm">
+               <div className="text-center group cursor-default">
+                  <div className="flex items-center justify-center gap-2 text-2xl md:text-3xl font-bold text-white mb-1 group-hover:text-primary-glow transition-colors">
+                    $195M <TrendingUp className="w-6 h-6 text-success" />
+                  </div>
+                  <div className="text-xs text-slate-500 uppercase tracking-wider font-mono">Privacy Infra Raised (Nov '25)</div>
+               </div>
+               <div className="text-center group cursor-default">
+                  <div className="text-2xl md:text-3xl font-bold text-white mb-1 group-hover:text-primary-glow transition-colors">
+                    0%
+                  </div>
+                  <div className="text-xs text-slate-500 uppercase tracking-wider font-mono">Custody Risk</div>
+               </div>
+               <div className="text-center group cursor-default">
+                  <div className="text-2xl md:text-3xl font-bold text-white mb-1 group-hover:text-primary-glow transition-colors">
+                    15+
+                  </div>
+                  <div className="text-xs text-slate-500 uppercase tracking-wider font-mono">Chains Supported</div>
+               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Problem Statement */}
-      <section className="section bg-slate-800">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-white mb-6">The Infrastructure Gap Institutions Can't Ignore</h2>
-            <p className="text-lg text-gray-300">
-              Every on-chain transaction exposes your strategy. Portfolio rotations, hedging moves, treasury rebalancing, and OTC settlements are visible to competitors, front-runners, and analysts.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <div className="card bg-slate-700 border-slate-600">
-              <TrendingUp className="w-12 h-12 text-error mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-3">Alpha Leakage</h3>
-              <p className="text-gray-300">
-                On-chain transparency allows competitors to front-run trades and analyze positioning. Estimated $1B+/year lost to MEV attacks.
+        {/* --- BENTO GRID: PROBLEM & SOLUTION --- */}
+        <section className="py-24 bg-surface/20">
+          <div className="container-custom">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">The Infrastructure Gap</h2>
+              <p className="text-slate-400 max-w-2xl mx-auto">
+                Institutional strategies are leaking alpha through on-chain transparency.
               </p>
             </div>
 
-            <div className="card bg-slate-700 border-slate-600">
-              <AlertTriangle className="w-12 h-12 text-warning mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-3">Regulatory Risk</h3>
-              <p className="text-gray-300">
-                Privacy mixers create compliance nightmares. Institutions need privacy WITHOUT regulatory exposure or sanctions risk.
-              </p>
-            </div>
-
-            <div className="card bg-slate-700 border-slate-600">
-              <Shield className="w-12 h-12 text-info mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-3">Operational Friction</h3>
-              <p className="text-gray-300">
-                Internal transfers leak intelligence, creating attack vectors and competitive analysis opportunities for rivals.
-              </p>
-            </div>
-          </div>
-
-          <div className="max-w-4xl mx-auto mt-16">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-              <div className="bg-slate-900/50 rounded-lg p-6 border border-slate-600">
-                <p className="text-4xl font-bold text-precision-600 mb-2">$195M+</p>
-                <p className="text-gray-400">Raised for privacy infrastructure (Nov 2025)</p>
+            <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              {/* Card 1: Alpha Leakage */}
+              <div className="col-span-1 md:col-span-2 glass-card p-8 rounded-xl relative group overflow-hidden min-h-[300px]">
+                <div className="absolute inset-0 bg-gradient-to-br from-red-900/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative z-10">
+                  <TrendingUp className="w-10 h-10 text-error mb-6" />
+                  <h3 className="text-2xl font-bold text-white mb-3">Alpha Leakage</h3>
+                  <p className="text-slate-400 text-lg leading-relaxed max-w-md">
+                    Estimated <span className="text-white font-semibold">$1B+/year</span> lost to MEV attacks. On-chain transparency allows competitors to front-run trades and analyze your positioning.
+                  </p>
+                </div>
+                <div className="absolute right-0 bottom-0 opacity-10 transform translate-x-1/4 translate-y-1/4">
+                  <LayoutGrid className="w-64 h-64 text-white" />
+                </div>
               </div>
-              <div className="bg-slate-900/50 rounded-lg p-6 border border-slate-600">
-                <p className="text-4xl font-bold text-precision-600 mb-2">$1B+</p>
-                <p className="text-gray-400">Annual MEV & alpha leakage losses</p>
-              </div>
-              <div className="bg-slate-900/50 rounded-lg p-6 border border-slate-600">
-                <p className="text-4xl font-bold text-precision-600 mb-2">73%</p>
-                <p className="text-gray-400">Institutions cite privacy as top concern</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Positioning Statement */}
-      <section className="section bg-precision-600">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-white mb-6">InterNull is NOT a Privacy Mixer</h2>
-            <p className="text-xl text-white/90 mb-8">
-              We're institutional confidentiality middleware—software infrastructure that enables compliant, auditable, multi-chain settlements. Deploy private pools or use our KYC-gated institutional pool. No custody risk. Full regulatory alignment.
-            </p>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-8 border border-white/20">
-              <div className="grid md:grid-cols-2 gap-8 text-left">
+              {/* Card 2: Compliance */}
+              <div className="col-span-1 row-span-2 glass-card p-8 rounded-xl relative group overflow-hidden flex flex-col justify-between">
+                <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div>
-                  <h4 className="text-white font-semibold mb-4">Privacy Mixers (Tornado Cash)</h4>
-                  <ul className="space-y-2 text-white/80">
-                    <li className="flex items-start gap-2">
-                      <X className="w-5 h-5 text-error flex-shrink-0 mt-0.5" />
-                      <span>Shared public pools</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <X className="w-5 h-5 text-error flex-shrink-0 mt-0.5" />
-                      <span>Anonymous transactions</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <X className="w-5 h-5 text-error flex-shrink-0 mt-0.5" />
-                      <span>No compliance tools</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <X className="w-5 h-5 text-error flex-shrink-0 mt-0.5" />
-                      <span>Regulatory risk</span>
-                    </li>
-                  </ul>
-                </div>
-
-                <div>
-                  <h4 className="text-white font-semibold mb-4">InterNull</h4>
-                  <ul className="space-y-2 text-white/80">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                      <span>Private pools or KYC-gated institutional pools</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                      <span>Confidential + auditable</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                      <span>Built-in OFAC screening, audit logs</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                      <span>Compliance-by-design with strict KYC separation</span>
-                    </li>
+                  <Shield className="w-10 h-10 text-primary mb-6" />
+                  <h3 className="text-xl font-bold text-white mb-3">Regulatory Risk</h3>
+                  <p className="text-slate-400 mb-4">
+                    Mixers create compliance nightmares. Institutions need privacy WITHOUT exposure.
+                  </p>
+                  <ul className="space-y-3 mt-6">
+                    {['MiCA & FinCEN Ready', 'OFAC Screening', 'Audit Logs'].map((item, i) => (
+                      <li key={i} className="flex items-center gap-2 text-sm text-slate-300">
+                        <CheckCircle className="w-4 h-4 text-primary" /> {item}
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Value Proposition */}
-      <section id="platform" className="section bg-slate-900">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-white mb-6">Why Leading Institutions Choose InterNull</h2>
-            <p className="text-lg text-gray-300">
-              Preserve alpha. Protect strategy. Enable compliance. All without introducing custody risk or regulatory exposure.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <div className="card bg-slate-800 border-slate-700">
-              <Lock className="w-12 h-12 text-privacy-500 mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-3">Privacy Without Risk</h3>
-              <p className="text-gray-300 mb-4">
-                Threshold encryption ensures transaction confidentiality without creating a shared anonymity pool.
-              </p>
-              <span className="text-sm text-success font-medium">Only solution combining privacy with compliance</span>
-            </div>
-
-            <div className="card bg-slate-800 border-slate-700">
-              <Shield className="w-12 h-12 text-success mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-3">Compliance-Ready</h3>
-              <p className="text-gray-300 mb-4">
-                Built-in OFAC screening, encrypted audit logs, and selective disclosure. GDPR/MiCA/FinCEN aligned.
-              </p>
-              <span className="text-sm text-success font-medium">Regulatory moat competitors can't replicate</span>
-            </div>
-
-            <div className="card bg-slate-800 border-slate-700">
-              <Globe className="w-12 h-12 text-info mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-3">Multi-Chain Agnostic</h3>
-              <p className="text-gray-300 mb-4">
-                Deploy across Ethereum, Polygon, Arbitrum, and 15+ chains. Single integration, unlimited flexibility.
-              </p>
-              <span className="text-sm text-success font-medium">Competitors are single-chain or require separate integrations</span>
-            </div>
-
-            <div className="card bg-slate-800 border-slate-700">
-              <Zap className="w-12 h-12 text-warning mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-3">Flexible Pool Deployment</h3>
-              <p className="text-gray-300 mb-4">
-                Deploy your own private pool, or use our compliant institutional pool with strict KYC requirements. Institutional funds never commingle with non-KYC'd participants.
-              </p>
-              <span className="text-sm text-success font-medium">Eliminates Tornado Cash regulatory argument</span>
-            </div>
-
-            <div className="card bg-slate-800 border-slate-700">
-              <TrendingUp className="w-12 h-12 text-audit-500 mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-3">Commission-Based Economics</h3>
-              <p className="text-gray-300 mb-4">
-                Transaction fees embedded in node operator economics (0.5-2% of volume). Costs scale with usage.
-              </p>
-              <span className="text-sm text-success font-medium">3-10x cheaper than dark pools</span>
-            </div>
-
-            <div className="card bg-slate-800 border-slate-700">
-              <CheckCircle className="w-12 h-12 text-success mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-3">Non-Custodial</h3>
-              <p className="text-gray-300 mb-4">
-                You maintain complete control. InterNull never holds your assets or keys.
-              </p>
-              <span className="text-sm text-success font-medium">Zero custody risk, zero counterparty risk</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Competitive Landscape */}
-      <section className="section bg-slate-800">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center mb-12">
-            <h2 className="text-white mb-6">Why Institutions Choose InterNull Over Alternative Solutions</h2>
-            <p className="text-lg text-gray-300">
-              Not all privacy solutions are created equal. See how InterNull compares to alternatives in the market.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {/* vs. Privacy L1s */}
-            <div className="card bg-slate-700 border-slate-600">
-              <h3 className="text-xl font-semibold text-white mb-4">Privacy L1s (Seismic, Aztec)</h3>
-              <div className="space-y-3 mb-4">
-                <div className="flex items-start gap-2">
-                  <X className="w-5 h-5 text-error flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-300">Single-chain, requires migration</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <X className="w-5 h-5 text-error flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-300">Limited liquidity fragmentation</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <X className="w-5 h-5 text-error flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-300">Complex integration overhead</span>
-                </div>
-              </div>
-              <div className="pt-4 border-t border-slate-600">
-                <p className="text-success font-semibold mb-2">InterNull Advantage:</p>
-                <p className="text-gray-300 text-sm">Multi-chain middleware, no migration needed. Works with your existing infrastructure across 15+ chains.</p>
-              </div>
-            </div>
-
-            {/* vs. Dark Pools */}
-            <div className="card bg-slate-700 border-slate-600">
-              <h3 className="text-xl font-semibold text-white mb-4">Traditional Dark Pools</h3>
-              <div className="space-y-3 mb-4">
-                <div className="flex items-start gap-2">
-                  <X className="w-5 h-5 text-error flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-300">$50K+/month fixed costs</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <X className="w-5 h-5 text-error flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-300">Limited to traditional securities</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <X className="w-5 h-5 text-error flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-300">No crypto asset support</span>
-                </div>
-              </div>
-              <div className="pt-4 border-t border-slate-600">
-                <p className="text-success font-semibold mb-2">InterNull Advantage:</p>
-                <p className="text-gray-300 text-sm">Commission-based pricing (0.5-2% of volume). Works with any digital asset. 3-10x cheaper for most use cases.</p>
-              </div>
-            </div>
-
-            {/* vs. Privacy Mixers */}
-            <div className="card bg-slate-700 border-slate-600">
-              <h3 className="text-xl font-semibold text-white mb-4">Privacy Mixers (Tornado Cash)</h3>
-              <div className="space-y-3 mb-4">
-                <div className="flex items-start gap-2">
-                  <X className="w-5 h-5 text-error flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-300">Regulatory & sanctions risk</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <X className="w-5 h-5 text-error flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-300">Shared anonymity pools</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <X className="w-5 h-5 text-error flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-300">No compliance tooling</span>
-                </div>
-              </div>
-              <div className="pt-4 border-t border-slate-600">
-                <p className="text-success font-semibold mb-2">InterNull Advantage:</p>
-                <p className="text-gray-300 text-sm">Private pool deployments or KYC-gated institutional pools that never mix with non-KYC'd participants. Built-in OFAC screening and audit logs. Fully compliant by design.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Use Cases */}
-      <section id="solutions" className="section bg-slate-900">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center mb-12">
-            <h2 className="text-white mb-6">Built for Your Use Case</h2>
-          </div>
-
-          {/* Tabs */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {[
-              { id: 'market-makers', label: 'Market Makers', icon: TrendingUp },
-              { id: 'funds', label: 'Crypto Funds', icon: Building },
-              { id: 'custodians', label: 'Custodians', icon: Landmark },
-              { id: 'daos', label: 'DAOs', icon: Users },
-              { id: 'fintechs', label: 'Fintech Platforms', icon: Zap }
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveUseCase(tab.id)}
-                className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition ${
-                  activeUseCase === tab.id
-                    ? 'bg-precision-600 text-white'
-                    : 'bg-slate-700 text-gray-300 hover:bg-slate-600'
-                }`}
-              >
-                <tab.icon className="w-5 h-5" />
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Tab Content */}
-          <div className="max-w-4xl mx-auto">
-            {activeUseCase === 'market-makers' && (
-              <div className="card bg-slate-700 border-slate-600">
-                <h3 className="text-2xl font-semibold text-white mb-4">Eliminate Traceable Portfolio Flows</h3>
-
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-white mb-2">The Challenge</h4>
-                  <p className="text-gray-300">
-                    Portfolio rotations and hedging moves visible on-chain lead to front-running, alpha leakage, and competitive analysis. Estimated $1B+/year lost to MEV and information leakage.
-                  </p>
-                </div>
-
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-white mb-2">The Solution</h4>
-                  <ul className="space-y-2 text-gray-300">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                      <span>Delta-neutral hedging strategies without market signal</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                      <span>Cross-venue arbitrage execution with confidentiality</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                      <span>Portfolio rebalancing without revealing strategy</span>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4 mb-6">
-                  <div className="bg-slate-800 rounded-lg p-4">
-                    <span className="text-sm text-gray-400">Deployment Timeline</span>
-                    <p className="text-lg font-semibold text-white">2-week pilot → 6-12 months production</p>
-                  </div>
-                  <div className="bg-slate-800 rounded-lg p-4">
-                    <span className="text-sm text-gray-400">Annual Cost</span>
-                    <p className="text-lg font-semibold text-white">$2-5M (avg $2.5M per firm)</p>
-                  </div>
-                </div>
-
-                <button className="btn btn-primary w-full md:w-auto">
-                  Schedule Market Maker Demo
-                </button>
-              </div>
-            )}
-
-            {activeUseCase === 'funds' && (
-              <div className="card bg-slate-700 border-slate-600">
-                <h3 className="text-2xl font-semibold text-white mb-4">Protect Treasury Movements</h3>
-
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-white mb-2">The Challenge</h4>
-                  <p className="text-gray-300">
-                    Treasury movements and rebalancing expose allocation strategy, enabling copy-trading, front-running, and regulatory scrutiny.
-                  </p>
-                </div>
-
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-white mb-2">The Solution</h4>
-                  <ul className="space-y-2 text-gray-300">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                      <span>Quarterly rebalancing without revealing allocation shifts</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                      <span>Strategic OTC purchases without market signal</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                      <span>Multi-signature operations with selective disclosure</span>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4 mb-6">
-                  <div className="bg-slate-800 rounded-lg p-4">
-                    <span className="text-sm text-gray-400">Deployment Timeline</span>
-                    <p className="text-lg font-semibold text-white">1-month pilot → 9-18 months production</p>
-                  </div>
-                  <div className="bg-slate-800 rounded-lg p-4">
-                    <span className="text-sm text-gray-400">Annual Cost</span>
-                    <p className="text-lg font-semibold text-white">$500K-$1.5M</p>
-                  </div>
-                </div>
-
-                <button className="btn btn-primary w-full md:w-auto">
-                  Schedule Fund Demo
-                </button>
-              </div>
-            )}
-
-            {activeUseCase === 'custodians' && (
-              <div className="card bg-slate-700 border-slate-600">
-                <h3 className="text-2xl font-semibold text-white mb-4">Secure Internal Operations</h3>
-
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-white mb-2">The Challenge</h4>
-                  <p className="text-gray-300">
-                    Internal transfers between hot/cold wallets, cross-exchange movements, and collateral rebalancing leak operational intelligence, creating attack vectors.
-                  </p>
-                </div>
-
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-white mb-2">The Solution</h4>
-                  <ul className="space-y-2 text-gray-300">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                      <span>Hot/cold wallet rebalancing without revealing reserves</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                      <span>Cross-exchange liquidity movements with privacy</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                      <span>Proof-of-reserves without exposing wallet structure</span>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4 mb-6">
-                  <div className="bg-slate-800 rounded-lg p-4">
-                    <span className="text-sm text-gray-400">Deployment Timeline</span>
-                    <p className="text-lg font-semibold text-white">2-week pilot → 6-12 months production</p>
-                  </div>
-                  <div className="bg-slate-800 rounded-lg p-4">
-                    <span className="text-sm text-gray-400">Annual Cost</span>
-                    <p className="text-lg font-semibold text-white">$1M-$20M (avg $7.5M)</p>
-                  </div>
-                </div>
-
-                <button className="btn btn-primary w-full md:w-auto">
-                  Schedule Custodian Demo
-                </button>
-              </div>
-            )}
-
-            {activeUseCase === 'daos' && (
-              <div className="card bg-slate-700 border-slate-600">
-                <h3 className="text-2xl font-semibold text-white mb-4">Confidential Grant Disbursements</h3>
-
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-white mb-2">The Challenge</h4>
-                  <p className="text-gray-300">
-                    Grant disbursements, OTC partnerships, and treasury operations are fully transparent, creating counterparty risks and fund targeting opportunities.
-                  </p>
-                </div>
-
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-white mb-2">The Solution</h4>
-                  <ul className="space-y-2 text-gray-300">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                      <span>Confidential grant distributions (protect recipients)</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                      <span>Strategic OTC partnerships without public disclosure</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                      <span>Selective disclosure to token holders/regulators</span>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4 mb-6">
-                  <div className="bg-slate-800 rounded-lg p-4">
-                    <span className="text-sm text-gray-400">Deployment Timeline</span>
-                    <p className="text-lg font-semibold text-white">2-week pilot → 3-9 months production</p>
-                  </div>
-                  <div className="bg-slate-800 rounded-lg p-4">
-                    <span className="text-sm text-gray-400">Annual Cost</span>
-                    <p className="text-lg font-semibold text-white">$200K-$500K</p>
-                  </div>
-                </div>
-
-                <button className="btn btn-primary w-full md:w-auto">
-                  Schedule DAO Demo
-                </button>
-              </div>
-            )}
-
-            {activeUseCase === 'fintechs' && (
-              <div className="card bg-slate-700 border-slate-600">
-                <h3 className="text-2xl font-semibold text-white mb-4">Privacy-Preserving Payment Rails</h3>
-
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-white mb-2">The Challenge</h4>
-                  <p className="text-gray-300">
-                    Fintech apps using blockchain rails expose customer financial data. Salaries, rent payments, and spending patterns become public, creating privacy nightmares and regulatory exposure under GDPR and emerging financial privacy laws.
-                  </p>
-                </div>
-
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-white mb-2">The Solution</h4>
-                  <ul className="space-y-2 text-gray-300">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                      <span>Customer payment privacy while maintaining full auditability</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                      <span>Multi-chain support (Polygon, Arbitrum, Base, Optimism, etc.)</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                      <span>No migration required - middleware layer over existing infrastructure</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                      <span>Protect users from on-chain profiling and targeting</span>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4 mb-6">
-                  <div className="bg-slate-800 rounded-lg p-4">
-                    <span className="text-sm text-gray-400">Deployment Timeline</span>
-                    <p className="text-lg font-semibold text-white">1-week pilot → 2-6 months production</p>
-                  </div>
-                  <div className="bg-slate-800 rounded-lg p-4">
-                    <span className="text-sm text-gray-400">Annual Cost</span>
-                    <p className="text-lg font-semibold text-white">$150K-$750K (scales with volume)</p>
-                  </div>
-                </div>
-
-                <div className="bg-precision-600/10 border border-precision-600/30 rounded-lg p-4 mb-6">
-                  <p className="text-precision-600 font-semibold mb-2">Competitive Advantage vs. Seismic:</p>
-                  <p className="text-gray-300 text-sm">
-                    Unlike single-chain privacy L1s, InterNull works across 15+ chains without requiring customer migration. Your users stay on familiar networks while gaining privacy protection.
-                  </p>
-                </div>
-
-                <button className="btn btn-primary w-full md:w-auto">
-                  Schedule Fintech Demo
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* Compliance Section */}
-      <section id="compliance" className="section bg-slate-900">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-white mb-6">Regulatory-Aligned by Design</h2>
-            <p className="text-lg text-gray-300">
-              Built for the post-Tornado Cash regulatory environment. August 2025 DOJ guidance confirms: software vendors with no custody are NOT liable for user misuse.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <div className="card bg-slate-800 border-slate-700">
-              <h3 className="text-xl font-semibold text-white mb-4">U.S. Regulatory Alignment</h3>
-              <ul className="space-y-3 text-gray-300">
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                  <span>August 2025 DOJ memo compliant</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                  <span>No FinCEN registration required</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                  <span>Built-in OFAC compliance</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="card bg-slate-800 border-slate-700">
-              <h3 className="text-xl font-semibold text-white mb-4">EU MiCA Ready</h3>
-              <ul className="space-y-3 text-gray-300">
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                  <span>NOT a CASP (no asset control)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                  <span>Privacy-by-design architecture</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                  <span>GDPR compliant</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="card bg-slate-800 border-slate-700">
-              <h3 className="text-xl font-semibold text-white mb-4">FATF Standards</h3>
-              <ul className="space-y-3 text-gray-300">
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                  <span>Software vendor, not VASP</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                  <span>No single control point</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                  <span>Multi-sig governance</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="max-w-3xl mx-auto mt-12">
-            <div className="bg-success/10 border border-success/30 rounded-lg p-6">
-              <div className="flex gap-4">
-                <CheckCircle className="w-6 h-6 text-success flex-shrink-0" />
-                <div>
-                  <h4 className="text-lg font-semibold text-white mb-2">Legal Moat</h4>
-                  <p className="text-gray-300">
-                    InterNull's architecture provides regulatory protection that competitors cannot easily replicate. Per-client deployments, non-custodial design, and compliance-by-design create defensible market position.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section id="pricing" className="section bg-slate-800">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-white mb-6">Economics That Scale With Your Business</h2>
-            <p className="text-lg text-gray-300">
-              Commission-based pricing aligns our success with yours. Pay only when you use it. No surprise costs.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <div className="card bg-slate-700 border-slate-600">
-              <h3 className="text-2xl font-semibold text-white mb-2">Starter</h3>
-              <p className="text-gray-400 mb-6">Small Funds & DAOs</p>
-              <div className="mb-6">
-                <span className="text-4xl font-bold text-white">$100K-$300K</span>
-                <span className="text-gray-400">/year</span>
-              </div>
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-start gap-2 text-gray-300">
-                  <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                  <span>&lt;1M transactions/month</span>
-                </li>
-                <li className="flex items-start gap-2 text-gray-300">
-                  <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                  <span>Single-chain deployment</span>
-                </li>
-                <li className="flex items-start gap-2 text-gray-300">
-                  <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                  <span>Email support</span>
-                </li>
-              </ul>
-              <button className="btn btn-secondary w-full">Request Quote</button>
-            </div>
-
-            <div className="card bg-precision-600 border-precision-600 relative">
-              <div className="absolute top-0 right-0 bg-success text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
-                POPULAR
-              </div>
-              <h3 className="text-2xl font-semibold text-white mb-2">Professional</h3>
-              <p className="text-white/80 mb-6">Mid-Size Institutions</p>
-              <div className="mb-6">
-                <span className="text-4xl font-bold text-white">$500K-$1.5M</span>
-                <span className="text-white/80">/year</span>
-              </div>
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-start gap-2 text-white">
-                  <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                  <span>1-10M transactions/month</span>
-                </li>
-                <li className="flex items-start gap-2 text-white">
-                  <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                  <span>Multi-chain deployment</span>
-                </li>
-                <li className="flex items-start gap-2 text-white">
-                  <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                  <span>Dedicated support + SLA</span>
-                </li>
-                <li className="flex items-start gap-2 text-white">
-                  <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                  <span>Audit module included</span>
-                </li>
-              </ul>
-              <button className="btn btn-primary w-full bg-white text-precision-600 hover:bg-gray-50">Request Quote</button>
-            </div>
-
-            <div className="card bg-slate-700 border-slate-600">
-              <h3 className="text-2xl font-semibold text-white mb-2">Enterprise</h3>
-              <p className="text-gray-400 mb-6">Large Custodians & Exchanges</p>
-              <div className="mb-6">
-                <span className="text-4xl font-bold text-white">Custom</span>
-              </div>
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-start gap-2 text-gray-300">
-                  <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                  <span>Unlimited transactions</span>
-                </li>
-                <li className="flex items-start gap-2 text-gray-300">
-                  <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                  <span>White-label deployment</span>
-                </li>
-                <li className="flex items-start gap-2 text-gray-300">
-                  <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                  <span>24/7 priority support</span>
-                </li>
-                <li className="flex items-start gap-2 text-gray-300">
-                  <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                  <span>Custom integrations</span>
-                </li>
-              </ul>
-              <button className="btn btn-secondary w-full">Talk to Sales</button>
-            </div>
-          </div>
-
-          <p className="text-center text-gray-400 mt-8">
-            Flexible pricing: Commission-based (0.5-2% of tx volume) or Fixed SaaS licensing
-          </p>
-        </div>
-      </section>
-
-      {/* Trust & Social Proof */}
-      <section className="section bg-slate-900">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-white mb-4">Trusted by Leading Institutions</h2>
-              <p className="text-gray-300">
-                Join forward-thinking organizations building the future of confidential finance
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-8 mb-12">
-              <div className="card bg-slate-800 border-slate-700">
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="w-12 h-12 bg-precision-600/20 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Building className="w-6 h-6 text-precision-600" />
-                  </div>
-                  <div>
-                    <p className="text-white font-semibold mb-1">Institutional Grade</p>
-                    <p className="text-gray-400 text-sm">Built for the world's most demanding financial institutions</p>
-                  </div>
-                </div>
-                <p className="text-gray-300 text-sm italic">
-                  "InterNull's multi-chain architecture solved what others couldn't - privacy without regulatory risk. The per-client deployment model was exactly what our compliance team needed."
+              {/* Card 3: Operational Friction */}
+              <div className="col-span-1 glass-card p-8 rounded-xl relative group overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-green-900/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <EyeOff className="w-10 h-10 text-success mb-6" />
+                <h3 className="text-xl font-bold text-white mb-3">Operational Friction</h3>
+                <p className="text-slate-400">
+                  Internal transfers leak intelligence, creating attack vectors for rivals.
                 </p>
-                <p className="text-gray-400 text-sm mt-3">— Risk Officer, Top 10 Market Maker</p>
               </div>
 
-              <div className="card bg-slate-800 border-slate-700">
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="w-12 h-12 bg-success/20 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Shield className="w-6 h-6 text-success" />
-                  </div>
-                  <div>
-                    <p className="text-white font-semibold mb-1">Compliance First</p>
-                    <p className="text-gray-400 text-sm">Regulatory alignment from day one</p>
-                  </div>
-                </div>
-                <p className="text-gray-300 text-sm italic">
-                  "Finally, a privacy solution that our legal team approves. The built-in audit logs and OFAC screening make this a no-brainer for institutional adoption."
+              {/* Card 4: Tech Spec */}
+              <div className="col-span-1 glass-card p-8 rounded-xl relative group overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-900/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <Server className="w-10 h-10 text-accent mb-6" />
+                <h3 className="text-xl font-bold text-white mb-3">DKG Architecture</h3>
+                <p className="text-slate-400">
+                  Distributed Key Generation ensures no single point of failure. You hold the keys.
                 </p>
-                <p className="text-gray-400 text-sm mt-3">— Head of Compliance, Digital Asset Fund ($2B AUM)</p>
-              </div>
-            </div>
-
-            <div className="bg-slate-800 border border-slate-700 rounded-lg p-8 text-center">
-              <p className="text-gray-300 mb-6">
-                Want to speak with existing customers about their experience?
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="btn btn-secondary">
-                  Request Customer References
-                </button>
-                <button className="btn btn-primary">
-                  Schedule Technical Deep-Dive
-                </button>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Final CTA */}
-      <section className="section bg-gradient-to-br from-precision-600 to-indigo-600">
-        <div className="container-custom">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-white mb-6">Ready to Eliminate On-Chain Exposure?</h2>
-            <p className="text-xl text-white/90 mb-8">
+        {/* --- INTERACTIVE USE CASES (Updated with Fintech) --- */}
+        <section id="solutions" className="py-24 border-t border-slate-800">
+          <div className="container-custom">
+            <div className="max-w-5xl mx-auto">
+              <div className="flex flex-wrap justify-center gap-2 mb-12">
+                {[
+                  { id: 'market-makers', label: 'Market Makers' },
+                  { id: 'funds', label: 'Crypto Funds' },
+                  { id: 'custodians', label: 'Custodians' },
+                  { id: 'fintechs', label: 'Fintechs' }, // Added from your update
+                  { id: 'daos', label: 'DAOs' }
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveUseCase(tab.id)}
+                    className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                      activeUseCase === tab.id
+                        ? 'bg-primary text-white shadow-[0_0_20px_-5px_rgba(15,82,186,0.5)]'
+                        : 'bg-surface border border-slate-800 text-slate-400 hover:text-white hover:border-slate-600'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+
+              <div className="glass-card rounded-2xl p-1 md:p-12 min-h-[450px] border-slate-700/50 relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-6 opacity-10">
+                    {activeUseCase === 'market-makers' ? <TrendingUp className="w-64 h-64 text-white" /> : 
+                     activeUseCase === 'funds' ? <Building className="w-64 h-64 text-white" /> :
+                     activeUseCase === 'custodians' ? <Lock className="w-64 h-64 text-white" /> :
+                     activeUseCase === 'fintechs' ? <Zap className="w-64 h-64 text-white" /> :
+                     <Users className="w-64 h-64 text-white" />
+                    }
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-12 items-center relative z-10">
+                  <div className="order-2 md:order-1">
+                    {/* Market Makers */}
+                    {activeUseCase === 'market-makers' && (
+                      <div className="animate-fade-in">
+                        <div className="inline-block px-3 py-1 rounded bg-red-500/10 text-red-400 text-xs font-mono mb-4 border border-red-500/20">
+                          PROBLEM: FRONT-RUNNING
+                        </div>
+                        <h3 className="text-3xl font-bold text-white mb-4">Execute Without Signaling</h3>
+                        <p className="text-slate-400 mb-8 leading-relaxed text-lg">
+                          Eliminate traceable portfolio flows. Execute delta-neutral hedging and cross-venue arbitrage without alerting the market.
+                        </p>
+                        
+                        <div className="flex items-center gap-4 p-4 rounded-lg bg-slate-900/60 border border-slate-800 mb-8">
+                            <div className="text-green-400 font-bold text-xl">$2M-5M</div>
+                            <div className="h-8 w-px bg-slate-700"></div>
+                            <div className="text-sm text-slate-400">Est. annual cost (Avg $2.5M)</div>
+                        </div>
+
+                        <button className="text-primary-glow hover:text-white font-medium flex items-center gap-2 transition-colors group">
+                          Schedule Market Maker Demo <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </button>
+                      </div>
+                    )}
+                    
+                    {/* Funds */}
+                    {activeUseCase === 'funds' && (
+                       <div className="animate-fade-in">
+                       <div className="inline-block px-3 py-1 rounded bg-blue-500/10 text-blue-400 text-xs font-mono mb-4 border border-blue-500/20">
+                          PROBLEM: COPY TRADING
+                       </div>
+                       <h3 className="text-3xl font-bold text-white mb-4">Protect Treasury Movements</h3>
+                       <p className="text-slate-400 mb-8 leading-relaxed text-lg">
+                         Enter and exit large positions without triggering copy-traders. Perform quarterly rebalancing and OTC settlements while shielding your LPs' strategies.
+                       </p>
+                       <div className="flex items-center gap-4 p-4 rounded-lg bg-slate-900/60 border border-slate-800 mb-8">
+                            <div className="text-white font-bold text-xl">$500K-1.5M</div>
+                            <div className="h-8 w-px bg-slate-700"></div>
+                            <div className="text-sm text-slate-400">Est. annual cost</div>
+                        </div>
+                       <button className="text-primary-glow hover:text-white font-medium flex items-center gap-2 transition-colors group">
+                         Schedule Fund Demo <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                       </button>
+                     </div>
+                    )}
+
+                    {/* Custodians */}
+                    {activeUseCase === 'custodians' && (
+                       <div className="animate-fade-in">
+                       <div className="inline-block px-3 py-1 rounded bg-yellow-500/10 text-yellow-400 text-xs font-mono mb-4 border border-yellow-500/20">
+                          PROBLEM: WALLET RECONNAISSANCE
+                       </div>
+                       <h3 className="text-3xl font-bold text-white mb-4">Secure Internal Operations</h3>
+                       <p className="text-slate-400 mb-8 leading-relaxed text-lg">
+                         Move funds between hot and cold wallets without revealing your total assets under custody. Reduce the attack surface by obfuscating internal operational flows.
+                       </p>
+                       <div className="flex items-center gap-4 p-4 rounded-lg bg-slate-900/60 border border-slate-800 mb-8">
+                            <div className="text-white font-bold text-xl">$1M-20M</div>
+                            <div className="h-8 w-px bg-slate-700"></div>
+                            <div className="text-sm text-slate-400">Est. annual cost</div>
+                        </div>
+                       <button className="text-primary-glow hover:text-white font-medium flex items-center gap-2 transition-colors group">
+                         Schedule Custodian Demo <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                       </button>
+                     </div>
+                    )}
+
+                    {/* Fintechs (New) */}
+                    {activeUseCase === 'fintechs' && (
+                       <div className="animate-fade-in">
+                       <div className="inline-block px-3 py-1 rounded bg-purple-500/10 text-purple-400 text-xs font-mono mb-4 border border-purple-500/20">
+                          PROBLEM: USER PRIVACY
+                       </div>
+                       <h3 className="text-3xl font-bold text-white mb-4">Privacy-Preserving Rails</h3>
+                       <p className="text-slate-400 mb-8 leading-relaxed text-lg">
+                         Salaries, rent payments, and spending patterns are exposed on-chain. Protect your users from profiling and GDPR liabilities using our middleware.
+                       </p>
+                       <div className="flex items-center gap-4 p-4 rounded-lg bg-slate-900/60 border border-slate-800 mb-8">
+                            <div className="text-white font-bold text-xl">$150K-750K</div>
+                            <div className="h-8 w-px bg-slate-700"></div>
+                            <div className="text-sm text-slate-400">Scales with volume</div>
+                        </div>
+                       <button className="text-primary-glow hover:text-white font-medium flex items-center gap-2 transition-colors group">
+                         Schedule Fintech Demo <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                       </button>
+                     </div>
+                    )}
+                    
+                    {/* DAOs */}
+                    {activeUseCase === 'daos' && (
+                       <div className="animate-fade-in">
+                       <div className="inline-block px-3 py-1 rounded bg-green-500/10 text-green-400 text-xs font-mono mb-4 border border-green-500/20">
+                          PROBLEM: CONTRIBUTOR PRIVACY
+                       </div>
+                       <h3 className="text-3xl font-bold text-white mb-4">Confidential Grants</h3>
+                       <p className="text-slate-400 mb-8 leading-relaxed text-lg">
+                         Disburse grants and pay contributors without doxxing their wallets. Maintain a public ledger of amounts spent while keeping recipient identities private.
+                       </p>
+                       <button className="text-primary-glow hover:text-white font-medium flex items-center gap-2 transition-colors group">
+                         Schedule DAO Demo <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                       </button>
+                     </div>
+                    )}
+                  </div>
+                  
+                  {/* Architecture Diagram */}
+                  <div className="order-1 md:order-2 h-full min-h-[300px] rounded-xl border border-slate-700/50 flex flex-col items-center justify-center relative bg-slate-900/50 backdrop-blur-sm p-8">
+                     <p className="text-xs text-slate-500 font-mono mb-4 uppercase tracking-widest">InterNull Architecture</p>
+                                       </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* --- COMPARISON: STRATEGIC POSITIONING --- */}
+        <section id="comparison" className="py-24 bg-surface/30 border-y border-slate-800">
+          <div className="container-custom">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                  Institutional Privacy <br />
+                  <span className="text-slate-500">vs. Public Mixers</span>
+                </h2>
+                <p className="text-slate-400 text-lg mb-8">
+                  InterNull is middleware, not a mixer. Our architecture is designed from the ground up for the post-Tornado Cash regulatory environment.
+                </p>
+                
+                <div className="space-y-6">
+                  {[
+                    { title: 'Isolated Deployments', desc: 'No shared liquidity pools. Your transaction set is yours alone.' },
+                    { title: 'Audit Keys', desc: 'Generate view-only keys for auditors or regulators instantly.' },
+                    { title: 'OFAC Screening', desc: 'Built-in oracle screens all interactions against sanctions lists.' }
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-4">
+                      <div className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center mt-1 shrink-0">
+                        <CheckCircle className="w-4 h-4 text-green-500" />
+                      </div>
+                      <div>
+                        <h4 className="text-white font-semibold">{item.title}</h4>
+                        <p className="text-sm text-slate-500">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="relative">
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-2xl blur opacity-20"></div>
+                <div className="relative bg-background border border-slate-700 rounded-2xl p-8">
+                  <div className="flex items-center justify-between border-b border-slate-800 pb-6 mb-6">
+                    <span className="text-white font-mono text-sm uppercase tracking-widest">Comparison</span>
+                    <div className="flex gap-4 text-xs font-bold">
+                      <span className="text-primary-glow">INTERNULL</span>
+                      <span className="text-slate-600">MIXERS</span>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    {[
+                       { feat: 'Custody', us: 'Non-Custodial', them: 'Smart Contract Risk' },
+                       { feat: 'Auditability', us: 'Full & Selective', them: 'None' },
+                       { feat: 'AML/KYC', us: 'Integrated', them: 'None' },
+                       { feat: 'Pool Structure', us: 'Isolated / Private', them: 'Shared / Public' },
+                       { feat: 'Sanctions', us: 'Real-time Screening', them: 'None' },
+                    ].map((row, i) => (
+                        <div key={i} className="grid grid-cols-3 text-sm py-3 border-b border-slate-800/50 last:border-0">
+                            <div className="text-slate-400 font-medium">{row.feat}</div>
+                            <div className="text-green-400 font-semibold flex items-center gap-2">
+                                <CheckCircle className="w-3 h-3" /> {row.us}
+                            </div>
+                            <div className="text-slate-600 flex items-center gap-2">
+                                <X className="w-3 h-3" /> {row.them}
+                            </div>
+                        </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* --- PRICING SECTION (Updated Cost Structure) --- */}
+        <section id="pricing" className="py-24">
+          <div className="container-custom">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Economics That Scale</h2>
+              <p className="text-slate-400 max-w-2xl mx-auto">
+                Commission-based pricing aligns our success with yours.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto items-center">
+              {/* Starter */}
+              <div className="glass-card p-8 rounded-xl border-slate-800">
+                <h3 className="text-xl font-bold text-white mb-2">Starter</h3>
+                <p className="text-slate-500 text-sm mb-6">Small Funds & DAOs</p>
+                <div className="text-2xl font-bold text-white mb-1">$100K - $300K<span className="text-sm text-slate-500 font-normal">/yr</span></div>
+                <p className="text-xs text-slate-500 mb-8">&lt;1M tx/month</p>
+                <ul className="space-y-3 mb-8 text-sm text-slate-400">
+                  <li className="flex gap-2"><CheckCircle className="w-4 h-4 text-slate-600" /> Single Chain</li>
+                  <li className="flex gap-2"><CheckCircle className="w-4 h-4 text-slate-600" /> Email Support</li>
+                </ul>
+                <button className="w-full py-3 border border-slate-700 text-white rounded hover:bg-slate-800 transition-colors">Request Quote</button>
+              </div>
+
+              {/* Professional (Highlight) */}
+              <div className="glass-card p-8 rounded-xl border-primary/50 relative bg-surface/60 transform md:-translate-y-4 shadow-2xl shadow-black/50">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-success text-white text-xs font-bold px-3 py-1 rounded-full">POPULAR</div>
+                <h3 className="text-xl font-bold text-white mb-2">Professional</h3>
+                <p className="text-slate-400 text-sm mb-6">Mid-Size Institutions</p>
+                <div className="text-3xl font-bold text-white mb-1">$500K - $1.5M<span className="text-sm text-slate-500 font-normal">/yr</span></div>
+                <p className="text-xs text-slate-500 mb-8">1-10M tx/month</p>
+                <ul className="space-y-3 mb-8 text-sm text-slate-300">
+                  <li className="flex gap-2"><CheckCircle className="w-4 h-4 text-primary" /> Multi-chain Deployment</li>
+                  <li className="flex gap-2"><CheckCircle className="w-4 h-4 text-primary" /> Audit Module Included</li>
+                  <li className="flex gap-2"><CheckCircle className="w-4 h-4 text-primary" /> Dedicated Support + SLA</li>
+                </ul>
+                <button className="w-full py-3 bg-primary text-white rounded font-semibold hover:bg-primary-dark transition-colors shadow-lg shadow-primary/20">Request Quote</button>
+              </div>
+
+              {/* Enterprise */}
+              <div className="glass-card p-8 rounded-xl border-slate-800">
+                <h3 className="text-xl font-bold text-white mb-2">Enterprise</h3>
+                <p className="text-slate-500 text-sm mb-6">Large Custodians & Exchanges</p>
+                <div className="text-3xl font-bold text-white mb-1">Custom</div>
+                <p className="text-xs text-slate-500 mb-8">Unlimited volume</p>
+                <ul className="space-y-3 mb-8 text-sm text-slate-400">
+                  <li className="flex gap-2"><CheckCircle className="w-4 h-4 text-slate-600" /> White Label Options</li>
+                  <li className="flex gap-2"><CheckCircle className="w-4 h-4 text-slate-600" /> Custom Integrations</li>
+                  <li className="flex gap-2"><CheckCircle className="w-4 h-4 text-slate-600" /> 24/7 Priority Support</li>
+                </ul>
+                <button className="w-full py-3 border border-slate-700 text-white rounded hover:bg-slate-800 transition-colors">Contact Sales</button>
+              </div>
+            </div>
+            <p className="text-center text-slate-500 text-sm mt-8">
+                Flexible pricing: Commission-based (0.5-2% of tx volume) or Fixed SaaS licensing available.
+            </p>
+          </div>
+        </section>
+
+        {/* --- FINAL CTA --- */}
+        <section className="py-32 relative overflow-hidden">
+          <div className="absolute inset-0 bg-primary/5 z-0"></div>
+          <div className="container-custom relative z-10 text-center">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">Ready to go dark?</h2>
+            <p className="text-xl text-slate-400 mb-12 max-w-2xl mx-auto">
               Join leading institutions using InterNull for confidential, compliant settlements.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="btn btn-primary text-lg px-8 py-4 bg-white text-precision-600 hover:bg-gray-50">
-                Request Demo
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <button className="btn-primary text-lg px-8 py-4 rounded shadow-xl">
+                Start Integration
               </button>
-              <button className="btn btn-secondary text-lg px-8 py-4 bg-white/10 border-white text-white hover:bg-white/20">
+              <button className="px-8 py-4 border border-slate-700 text-white rounded font-semibold hover:bg-surface/50 transition-colors">
                 Talk to Sales
               </button>
             </div>
-            <p className="text-white/80 mt-6">Or calculate your ROI →</p>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
-      {/* Footer */}
-      <footer className="bg-slate-900 border-t border-slate-800">
-        <div className="container-custom py-16">
-          <div className="grid md:grid-cols-5 gap-8 mb-12">
-            <div>
-              <h4 className="text-white font-semibold mb-4">Solutions</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition">Market Makers</a></li>
-                <li><a href="#" className="hover:text-white transition">Crypto Funds</a></li>
-                <li><a href="#" className="hover:text-white transition">Custodians</a></li>
-                <li><a href="#" className="hover:text-white transition">DAOs</a></li>
-              </ul>
+      {/* --- FOOTER --- */}
+      <footer className="bg-background border-t border-slate-800 py-12">
+        <div className="container-custom">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="flex items-center gap-2">
+              <Shield className="w-6 h-6 text-slate-600" />
+              <span className="text-lg font-bold text-slate-500">InterNull</span>
             </div>
-
-            <div>
-              <h4 className="text-white font-semibold mb-4">Platform</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition">Architecture</a></li>
-                <li><a href="#" className="hover:text-white transition">Multi-Chain</a></li>
-                <li><a href="#" className="hover:text-white transition">Compliance</a></li>
-                <li><a href="#" className="hover:text-white transition">Security</a></li>
-              </ul>
+            <div className="text-slate-600 text-sm">
+              © 2025 InterNull Institutional. All rights reserved.
             </div>
-
-            <div>
-              <h4 className="text-white font-semibold mb-4">Resources</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition">Documentation</a></li>
-                <li><a href="#" className="hover:text-white transition">Whitepapers</a></li>
-                <li><a href="#" className="hover:text-white transition">Case Studies</a></li>
-                <li><a href="#" className="hover:text-white transition">Blog</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-white font-semibold mb-4">Company</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition">About</a></li>
-                <li><a href="#" className="hover:text-white transition">Team</a></li>
-                <li><a href="#" className="hover:text-white transition">Careers</a></li>
-                <li><a href="#" className="hover:text-white transition">Contact</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-white font-semibold mb-4">Legal</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-white transition">Terms of Service</a></li>
-                <li><a href="#" className="hover:text-white transition">Compliance</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-slate-800 pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <p className="text-gray-400">
-                © 2025 InterNull. Built for institutions. Not anonymous. Compliant.
-              </p>
-              <div className="flex gap-6">
-                <a href="#" className="text-gray-400 hover:text-white transition">LinkedIn</a>
-                <a href="#" className="text-gray-400 hover:text-white transition">Twitter</a>
-                <a href="#" className="text-gray-400 hover:text-white transition">GitHub</a>
-              </div>
+            <div className="flex gap-6">
+              <a href="#" className="text-slate-600 hover:text-primary transition-colors"><Globe className="w-5 h-5" /></a>
+              <a href="#" className="text-slate-600 hover:text-primary transition-colors">Twitter</a>
+              <a href="#" className="text-slate-600 hover:text-primary transition-colors">GitHub</a>
             </div>
           </div>
         </div>
