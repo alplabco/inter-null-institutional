@@ -35,3 +35,16 @@ next-env.d.ts
 # IDE
 .vscode
 .idea
+*.swp
+*.swo
+*~
+
+# Cloudflare
+.dev.vars
+.wrangler/
+
+# OS specific
+Thumbs.db
+
+# Temporary files
+*.tmp
