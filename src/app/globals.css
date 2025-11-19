@@ -48,7 +48,7 @@
 
 @layer base {
   body {
-    @apply bg-deep-slate-50 text-deep-slate-900 antialiased;
+    @apply bg-gray-50 text-slate-900 antialiased;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -86,19 +86,19 @@
   }
 
   .btn-primary {
-    @apply bg-precision-blue text-white hover:bg-precision-blue-hover focus:ring-precision-blue;
+    @apply bg-precision-600 text-white hover:bg-precision-700 focus:ring-precision-600;
   }
 
   .btn-secondary {
-    @apply bg-white text-precision-blue border-2 border-precision-blue hover:bg-deep-slate-50 focus:ring-precision-blue;
+    @apply bg-white text-precision-600 border-2 border-precision-600 hover:bg-gray-50 focus:ring-precision-600;
   }
 
   .btn-tertiary {
-    @apply text-precision-blue hover:text-precision-blue-hover underline-offset-4 hover:underline;
+    @apply text-precision-600 hover:text-precision-700 underline-offset-4 hover:underline;
   }
 
   .card {
-    @apply bg-white rounded-lg border border-cool-gray-200 p-6 shadow-sm transition-shadow duration-200 hover:shadow-md;
+    @apply bg-white rounded-lg border border-gray-200 p-6 shadow-sm transition-shadow duration-200 hover:shadow-md;
   }
 
   .section {
