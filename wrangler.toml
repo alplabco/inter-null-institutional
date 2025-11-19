@@ -3,7 +3,3 @@ compatibility_date = "2024-01-01"
 
 # Pages configuration for static site deployment
 pages_build_output_dir = "out"
-
-# Routes configuration - serve all routes
-[[routes]]
-pattern = "/*"
