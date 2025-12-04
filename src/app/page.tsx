@@ -373,7 +373,7 @@ export default function Home() {
                 
                 <div className="space-y-6">
                   {[
-                    { title: 'EU MiCA Compliance', desc: 'Full AML/CFT integration, supervised CASPs, and cooperation with FIUs enabled.' },
+                    { title: 'EU MiCA Compliance', desc: 'Full AML/CFT integration, ready for CASPs usage, and cooperation with FIUs enabled.' },
                     { title: 'FATF Travel Rule', desc: 'Secure APIs for originator/beneficiary data exchange alongside private on-chain transactions.' },
                     { title: 'DORA Resilience', desc: 'Enterprise-grade infrastructure with redundancy, audited smart contracts, and 24/7 monitoring.' },
                     { title: 'U.S. FinCEN Ready', desc: 'OFAC screening, sanctions compliance, and MSB registration framework where required.' },
