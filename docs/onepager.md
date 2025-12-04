@@ -1,4 +1,4 @@
-nternull Institutional: Privacy-Preserving Cross-Chain Transactions for Compliant Institutions
+**Internull Institutional: Privacy-Preserving Cross-Chain Transactions for Compliant Institutions**
 Overview: Complete Privacy Across Chains
 
 Internull is a cross-chain privacy protocol enabling confidential crypto transactions across ecosystems (EVM and Solana). It allows a user to deposit assets on one chain and withdraw on another with zero linkage between the two actions
